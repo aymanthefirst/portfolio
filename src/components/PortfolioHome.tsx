@@ -20,8 +20,8 @@ export default function PortfolioHome({ year }: { year: number }) {
             <a href="#experience" className="nav-link">
               Experience
             </a>
-            <a href="#builds" className="nav-link">
-              Builds
+            <a href="#projects" className="nav-link">
+              Projects
             </a>
             <a href="#skills" className="nav-link">
               Skills
@@ -110,10 +110,10 @@ export default function PortfolioHome({ year }: { year: number }) {
           </ol>
         </section>
 
-        <section id="builds" className="section-shell scroll-mt-24">
+        <section id="projects" className="section-shell scroll-mt-24">
           <SectionHeader
-            eyebrow="Projects"
-            title="Builds"
+            eyebrow="Demos"
+            title="Projects"
             description="Side projects with public demos — select a project to watch."
           />
           <div
