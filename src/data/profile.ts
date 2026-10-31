@@ -1,6 +1,6 @@
 export const profile = {
   name: "Ayman El Harake",
-  title: "Software Developer",
+  title: "Java Developer",
   tagline:
     "Java, Spring, and Python across backend services, APIs, and full applications — Alfresco alum, delivery-focused, multilingual.",
   summary:
