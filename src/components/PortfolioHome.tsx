@@ -113,7 +113,7 @@ export default function PortfolioHome({ year }: { year: number }) {
                   </button>
                 </div>
               </div>
-              <div className="headshot-frame mx-auto shrink-0 lg:mx-0">
+              <div className="headshot-frame relative mx-auto shrink-0 lg:mx-0">
                 <Image
                   src="/portfolio/ayman-headshot.jpg"
                   alt="Ayman El Harake"
@@ -122,17 +122,23 @@ export default function PortfolioHome({ year }: { year: number }) {
                   priority
                   className="h-40 w-40 object-cover object-top md:h-44 md:w-44"
                 />
+                <span
+                  className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-zinc-950/50"
+                  aria-hidden
+                />
               </div>
             </div>
 
-            <p className="mt-6 text-sm leading-relaxed text-zinc-500">
-              <span className="text-zinc-300">7+ years</span>
-              <span className="mx-2 text-zinc-700">·</span>
-              <span className="text-zinc-300">{profile.projects.length} public demos</span>
-              <span className="mx-2 text-zinc-700">·</span>
-              <span className="text-zinc-300">ESG Global & Alfresco</span>
-              <span className="mt-2 block text-xs text-zinc-600">{coreStack.join(" · ")}</span>
-            </p>
+            <div className="mt-6 border-t border-zinc-800/70 pt-6">
+              <p className="text-sm text-zinc-500">
+                <span className="text-zinc-300">7+ years</span>
+                <span className="mx-2 text-zinc-700">·</span>
+                <span className="text-zinc-300">{profile.projects.length} public demos</span>
+                <span className="mx-2 text-zinc-700">·</span>
+                <span className="text-zinc-300">ESG Global & Alfresco</span>
+              </p>
+              <p className="mt-3 text-xs leading-relaxed text-zinc-600">{coreStack.join(" · ")}</p>
+            </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <a
@@ -332,14 +338,14 @@ export default function PortfolioHome({ year }: { year: number }) {
             <p className="mt-2 text-sm text-zinc-500">
               <a
                 href={gmailComposeHref}
-                className="text-zinc-400 transition hover:text-teal-400"
+                className="text-zinc-400 transition hover:text-zinc-200"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 {profile.email}
               </a>
               <span className="mx-2 text-zinc-700">·</span>
-              <a href={mailtoHref} className="transition hover:text-teal-400">
+              <a href={mailtoHref} className="transition hover:text-zinc-200">
                 Open in mail app
               </a>
             </p>
@@ -368,7 +374,7 @@ export default function PortfolioHome({ year }: { year: number }) {
       <footer className="relative z-10 border-t border-zinc-800/70 py-10 text-center text-sm text-zinc-600">
         <p>
           © {year} {profile.name} ·{" "}
-          <a href={profile.linkedin} className="text-zinc-500 transition-colors hover:text-teal-400">
+          <a href={profile.linkedin} className="text-zinc-500 transition-colors hover:text-zinc-300">
             LinkedIn
           </a>
         </p>

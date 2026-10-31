@@ -1,0 +1,35 @@
+---
+description: Use Composer 2.5 only — no other models for this project
+alwaysApply: true
+---
+
+# Model policy (portfolio)
+
+This project is **Composer 2.5 only**. Do not use other models unless the user explicitly overrides this rule in the same message (e.g. “use Claude for this one”).
+
+## Main agent (this chat)
+
+- Assume the user intends **Composer 2.5 Fast** (`composer-2.5-fast`) for all work in this repo.
+- Do **not** suggest switching to Claude, Opus, GPT, Gemini, or Grok for routine tasks.
+
+## Subagents (`Task`, explore, generalPurpose, Bugbot, Security Review, etc.)
+
+- **Never** launch a subagent without pinning the model.
+- **Allowed model slugs only:** `composer-2.5-fast` (default) or `composer-2.5` if the user asked for non-fast Composer 2.5.
+- **Forbidden:** any other slug (Claude, Opus, GPT, Gemini, Grok, Muse, etc.).
+- When calling `Task`, **always** set `model: "composer-2.5-fast"` unless the user explicitly requested `composer-2.5`.
+
+Example:
+
+```
+Task tool with model composer-2.5-fast, subagent_type explore, prompt: ...
+```
+
+## Review / worker loops
+
+- **Reviewer** and **worker** roles run in this chat or in separate Tasks — both use **`composer-2.5-fast` only**.
+- Reviewer: screenshots + issues list, no code. Worker: implement + build + deploy. See `COMPOSER_REVIEW_LOOP.txt`.
+
+## If a tool rejects the model
+
+- Tell the user the task needs **Composer 2.5 Fast** selected in the Cursor model picker for this chat, or an explicit one-message override.

@@ -1,6 +1,6 @@
-Portfolio polish loop — Composer 2.5 ONLY (do not use Claude/Opus/GPT subagents).
+Portfolio polish loop — **Composer 2.5 only** (enforced in `.cursor/rules/composer-2.5-only.mdc`).
 
-Roles (same chat or two Composer tabs):
+Roles (same chat or two Composer tabs, both Composer 2.5 Fast):
 
 REVIEWER
 1. Open https://aymanthefirst.github.io/portfolio/ (hard refresh).
@@ -16,4 +16,4 @@ WORKER
 
 Repeat until reviewer says “ship” or no high-severity items remain.
 
-Model: Composer 2.5 Fast only. If using Cursor Task/subagent, set model to composer-2.5-fast explicitly.
+Model: **composer-2.5-fast** only. Every `Task` call must include `model: "composer-2.5-fast"`. No Claude/Opus/GPT subagents.
