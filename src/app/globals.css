@@ -3,46 +3,168 @@
 @theme inline {
   --font-sans: var(--font-dm-sans), system-ui, sans-serif;
   --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
-  --color-surface: #0c0c0e;
-  --color-surface-raised: #141416;
+  --font-display: var(--font-syne), var(--font-dm-sans), system-ui, sans-serif;
+  --color-surface: #070708;
+  --color-surface-raised: #121214;
   --color-border: rgb(39 39 42 / 0.85);
   --color-accent: #2dd4bf;
   --color-accent-muted: rgb(45 212 191 / 0.12);
 }
 
+@keyframes mesh-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2%, 1.5%) scale(1.03);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
 body {
   background-color: var(--color-surface);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(45 212 191 / 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 0%, rgb(59 130 246 / 0.04), transparent);
+    radial-gradient(ellipse 90% 55% at 50% -15%, rgb(45 212 191 / 0.14), transparent 55%),
+    radial-gradient(ellipse 50% 45% at 100% 10%, rgb(99 102 241 / 0.08), transparent 50%),
+    radial-gradient(ellipse 40% 35% at 0% 40%, rgb(45 212 191 / 0.06), transparent 45%),
+    linear-gradient(rgb(255 255 255 / 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.02) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    48px 48px,
+    48px 48px;
+  background-position: center, center, center, center, center;
+}
+
+.page-glow {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.page-glow::before,
+.page-glow::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  animation: mesh-drift 18s ease-in-out infinite;
+}
+
+.page-glow::before {
+  top: -8rem;
+  left: 15%;
+  height: 22rem;
+  width: 22rem;
+  background: rgb(45 212 191 / 0.12);
+}
+
+.page-glow::after {
+  top: 30%;
+  right: -5%;
+  height: 18rem;
+  width: 18rem;
+  background: rgb(129 140 248 / 0.08);
+  animation-delay: -6s;
 }
 
 @layer components {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-gradient {
+    background: linear-gradient(120deg, #f4f4f5 0%, #99f6e4 45%, #a5b4fc 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
   .section-shell {
-    @apply border-t border-zinc-800/70 py-16 md:py-20;
+    @apply relative border-t border-zinc-800/60 py-16 md:py-20;
   }
 
   .card {
-    @apply rounded-2xl border border-zinc-800/80 bg-zinc-900/35 shadow-sm shadow-black/20;
+    @apply rounded-2xl border border-zinc-800/70 bg-zinc-900/40 shadow-lg shadow-black/25 backdrop-blur-sm;
+  }
+
+  .card-interactive {
+    @apply rounded-2xl border border-zinc-800/70 bg-zinc-900/40 shadow-lg shadow-black/25 backdrop-blur-sm transition duration-300 hover:border-teal-500/25 hover:bg-zinc-900/55 hover:shadow-teal-950/20;
+  }
+
+  .glass-panel {
+    @apply rounded-3xl border border-white/[0.06] bg-zinc-950/50 p-6 shadow-2xl shadow-black/40 backdrop-blur-md md:p-8;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-teal-500 px-5 py-2.5 text-sm font-medium text-zinc-950 transition-colors hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500;
+    @apply inline-flex items-center justify-center rounded-full bg-gradient-to-r from-teal-400 to-teal-500 px-5 py-2.5 text-sm font-semibold text-zinc-950 shadow-lg shadow-teal-950/40 transition hover:from-teal-300 hover:to-teal-400 hover:shadow-teal-900/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-400;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/50 px-5 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-800/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500;
+    @apply inline-flex items-center justify-center rounded-full border border-zinc-600/80 bg-zinc-900/60 px-5 py-2.5 text-sm font-medium text-zinc-100 shadow-sm shadow-black/20 backdrop-blur-sm transition hover:border-zinc-400 hover:bg-zinc-800/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400;
   }
 
   .nav-link {
-    @apply text-zinc-400 transition-colors hover:text-zinc-100;
+    @apply relative text-zinc-400 transition-colors hover:text-zinc-50;
+  }
+
+  .nav-link::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-gradient-to-r from-teal-400 to-teal-600 transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
   }
 
   .pill {
-    @apply rounded-full border border-zinc-700/80 bg-zinc-800/60 px-3 py-1 text-sm text-zinc-300;
+    @apply rounded-full border border-zinc-700/70 bg-zinc-800/50 px-3 py-1 text-sm text-zinc-200 transition hover:border-teal-500/35 hover:bg-teal-500/10 hover:text-teal-100;
   }
 
   .pill-active {
     @apply border-teal-500/50 bg-teal-500/15 text-teal-200;
+  }
+
+  .stat-chip {
+    @apply rounded-xl border border-zinc-800/80 bg-zinc-900/50 px-4 py-3 backdrop-blur-sm;
+  }
+
+  .headshot-ring {
+    @apply rounded-2xl p-[3px] shadow-2xl shadow-teal-950/30;
+    background: linear-gradient(135deg, rgb(45 212 191 / 0.85), rgb(129 140 248 / 0.5), rgb(45 212 191 / 0.35));
+  }
+
+  .timeline-rail {
+    @apply absolute left-[7px] top-3 bottom-0 w-px bg-gradient-to-b from-teal-500/80 via-zinc-700/80 to-transparent;
+  }
+
+  .timeline-dot {
+    @apply absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full border-2 border-zinc-950 bg-teal-400 shadow-[0_0_12px_rgba(45,212,191,0.55)];
+  }
+
+  .project-tab-active {
+    @apply bg-gradient-to-r from-teal-400 to-teal-500 text-zinc-950 shadow-md shadow-teal-950/40;
+  }
+
+  .cta-band {
+    @apply relative overflow-hidden rounded-3xl border border-teal-500/20 bg-gradient-to-br from-teal-500/10 via-zinc-900/80 to-indigo-500/10 p-8 md:p-10;
+  }
+
+  .cta-band::before {
+    content: "";
+    @apply pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-teal-400/10 blur-3xl;
   }
 }
