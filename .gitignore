@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# deploy script staging (gh-pages push only — do not commit)
+.gh-pages-staging/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

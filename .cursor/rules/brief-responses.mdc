@@ -1,0 +1,10 @@
+---
+description: Default to ~50-word replies unless the user asks for more
+alwaysApply: true
+---
+
+# Brief replies (portfolio)
+
+- **Default:** Keep answers to **about 50 words** (roughly 2–4 short sentences). Count matters for casual/status questions and confirmations.
+- **Expand only when** the user asks for detail, steps, lists, code review, deploy logs, or says “explain”, “how”, “why in full”, etc.
+- **Do not** pad with follow-up offers every time; one direct question at the end is enough if something is blocked.

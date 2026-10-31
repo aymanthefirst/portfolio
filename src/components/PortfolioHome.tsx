@@ -28,24 +28,32 @@ export default function PortfolioHome({ year }: { year: number }) {
   const project = profile.projects[activeProject];
 
   useEffect(() => {
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
+    const navOffset = 120;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target.id) {
-          setActiveSection(visible[0].target.id as SectionId);
+    const updateActiveSection = () => {
+      if (window.scrollY < 80) {
+        setActiveSection("");
+        return;
+      }
+
+      let current: SectionId | "" = "";
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= navOffset) {
+          current = id;
         }
-      },
-      { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.25, 0.5] },
-    );
+      }
+      setActiveSection(current);
+    };
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, []);
 
   return (
@@ -113,18 +121,14 @@ export default function PortfolioHome({ year }: { year: number }) {
                   </button>
                 </div>
               </div>
-              <div className="headshot-frame relative mx-auto shrink-0 lg:mx-0">
+              <div className="headshot-portrait">
                 <Image
-                  src="/portfolio/ayman-headshot.jpg"
+                  src="/portfolio/ayman-headshot.png"
                   alt="Ayman El Harake"
-                  width={192}
-                  height={192}
+                  width={514}
+                  height={514}
                   priority
-                  className="h-40 w-40 object-cover object-top md:h-44 md:w-44"
-                />
-                <span
-                  className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-zinc-950/50"
-                  aria-hidden
+                  className="h-full w-full"
                 />
               </div>
             </div>

@@ -9,7 +9,7 @@ export const profile = {
   calendly: "https://calendly.com/aymanharake/30min",
   linkedin: "https://www.linkedin.com/in/aymanharake/",
   github: "https://github.com/aymanthefirst",
-  location: "Abingdon, UK — open to London hybrid and relocation (EU)",
+  location: "London, UK",
   availability: "Available with ~1 week notice",
 
   experience: [

@@ -72,9 +72,9 @@ body {
 
 .site-backdrop__layer--base {
   inset: -8%;
-  opacity: 0.14;
+  opacity: 0.26;
   background-position: center 20%;
-  filter: grayscale(100%) blur(0.5px);
+  filter: grayscale(90%) blur(0.5px);
 }
 
 .site-backdrop__layer--hero {
@@ -82,10 +82,10 @@ body {
   right: -12%;
   width: min(92vw, 880px);
   height: min(72vh, 640px);
-  opacity: 0.24;
+  opacity: 0.42;
   background-position: center;
-  filter: grayscale(85%) blur(0.5px);
-  mask-image: linear-gradient(105deg, transparent 8%, rgb(0 0 0 / 0.9) 48%, transparent 95%);
+  filter: grayscale(75%) blur(0.5px);
+  mask-image: linear-gradient(105deg, transparent 4%, rgb(0 0 0 / 0.95) 42%, transparent 92%);
 }
 
 .site-backdrop__layer--depth {
@@ -93,24 +93,24 @@ body {
   left: -15%;
   width: min(85vw, 760px);
   height: min(55vh, 520px);
-  opacity: 0.16;
+  opacity: 0.3;
   background-position: center;
-  filter: grayscale(100%) blur(1px);
-  mask-image: linear-gradient(285deg, transparent 8%, rgb(0 0 0 / 0.8) 48%, transparent 92%);
+  filter: grayscale(90%) blur(0.75px);
+  mask-image: linear-gradient(285deg, transparent 4%, rgb(0 0 0 / 0.88) 42%, transparent 90%);
 }
 
 .site-backdrop__scrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgb(7 7 8 / 0.2) 0%, rgb(7 7 8 / 0.65) 42%, rgb(7 7 8 / 0.82) 100%),
-    radial-gradient(ellipse 80% 50% at 50% 0%, rgb(255 255 255 / 0.04), transparent 55%);
+    linear-gradient(to bottom, rgb(7 7 8 / 0.12) 0%, rgb(7 7 8 / 0.48) 45%, rgb(7 7 8 / 0.68) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgb(255 255 255 / 0.05), transparent 55%);
 }
 
 .site-backdrop__vignette {
   position: absolute;
   inset: 0;
-  box-shadow: inset 0 0 120px rgb(0 0 0 / 0.45);
+  box-shadow: inset 0 0 100px rgb(0 0 0 / 0.32);
 }
 
 @layer components {
@@ -163,8 +163,27 @@ body {
     @apply rounded-xl border border-zinc-800/80 bg-zinc-900/50 px-4 py-3 backdrop-blur-sm;
   }
 
-  .headshot-frame {
-    @apply overflow-hidden rounded-xl border border-zinc-700/90 bg-zinc-800 shadow-sm;
+  .headshot-portrait {
+    @apply relative mx-auto shrink-0 lg:mx-0;
+    width: 11rem;
+    height: 11rem;
+  }
+
+  @media (min-width: 768px) {
+    .headshot-portrait {
+      width: 12.5rem;
+      height: 12.5rem;
+    }
+  }
+
+  .headshot-portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center 92%;
+    filter: drop-shadow(0 22px 36px rgb(0 0 0 / 0.55))
+      drop-shadow(0 8px 16px rgb(0 0 0 / 0.4));
   }
 
   .timeline-rail {
