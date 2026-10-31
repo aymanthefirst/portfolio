@@ -74,7 +74,7 @@ export default function PortfolioHome({ year }: { year: number }) {
           <SectionHeader
             eyebrow="Career"
             title="Experience"
-            description="End-to-end delivery from Alfresco platform work through ESG SaaS and automation engineering."
+            description="Backend and platform delivery at ESG Global and Alfresco, from academy placement through solution work."
           />
           <ol className="mt-10 space-y-10">
             {profile.experience.map((job) => (
@@ -161,7 +161,7 @@ export default function PortfolioHome({ year }: { year: number }) {
           <SectionHeader
             eyebrow="Toolkit"
             title="Skills"
-            description="Backend, frontend, platform, and quality — aligned with full-stack delivery roles."
+            description="Technologies from my CV — backend, integration, platform, quality, and AI-assisted development."
           />
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {profile.skillGroups.map((group) => (

@@ -14,9 +14,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ayman El Harake — Full Stack Developer",
+  title: "Ayman El Harake — Software Developer",
   description:
-    "Full Stack Developer. Java, Spring, React, TypeScript, Next.js. Alfresco alum.",
+    "Software Developer. Java, Spring Boot, APIs, and Alfresco platform experience.",
 };
 
 export default function RootLayout({

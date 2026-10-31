@@ -1,10 +1,10 @@
 export const profile = {
   name: "Ayman El Harake",
-  title: "Full Stack Developer",
+  title: "Software Developer",
   tagline:
-    "Java & Spring backend, product-facing UI, and CI/CD — Alfresco alum, delivery-focused, multilingual.",
+    "Java, Spring, and Python across backend services, APIs, and full applications — Alfresco alum, delivery-focused, multilingual.",
   summary:
-    "Full Stack Developer with strong Java, Spring, JavaScript, and Python across UI and backend. Builds end-to-end features — APIs, integrations, and application UI — with solid CI/CD and engineering judgement. Comfortable using AI as a development aid while staying hands-on in the code.",
+    "Software Developer with strong Java, Spring, JavaScript, and Python experience across backend services, APIs, and full applications. Builds reliable systems with solid engineering judgement, CI/CD, and practical use of AI-assisted development. Clear communicator, multilingual, and delivery-focused.",
   email: "harakeayman@gmail.com",
   linkedin: "https://www.linkedin.com/in/aymanharake/",
   github: "https://github.com/aymanthefirst",
@@ -13,52 +13,40 @@ export const profile = {
 
   experience: [
     {
-      role: "Automation Engineer",
-      company: "ESG Global",
-      note: "Promoted",
-      start: "Oct 2024",
-      end: "Oct 2025",
-      bullets: [
-        "Promoted after strong automation delivery and AI-driven workflow improvements.",
-        "Built end-to-end UI automation with Playwright, including recorder-driven test creation.",
-        "Turned repetitive manual checks into reliable flows across critical product workflows.",
-        "Combined UI automation with API testing (Postman) and CI for safer, faster releases.",
-      ],
-    },
-    {
-      role: "Full Stack Developer",
+      role: "Backend Developer",
       company: "ESG Global",
       start: "Jan 2024",
-      end: "Oct 2024",
+      end: "Oct 2025",
       bullets: [
-        "Delivered full stack features on energy SaaS platforms.",
-        "Built Java/Spring Boot services and REST APIs for billing, customer, and data systems.",
-        "Worked with microservices, cloud deployments, and front-to-back feature delivery.",
-        "Supported production systems with cross-team collaboration.",
+        "Built scalable backend services using Java, Spring Boot, microservices, and Kafka for real-time messaging and data processing on energy SaaS platforms.",
+        "Developed REST APIs for billing, customer, and data systems.",
+        "Worked with microservices and cloud deployments.",
+        "Processed large datasets and real-time data flows.",
+        "Improved performance, reliability, and system monitoring.",
+        "Collaborated with teams and supported production systems.",
       ],
     },
     {
-      role: "Full Stack Developer",
+      role: "Solution Developer",
       company: "Alfresco",
-      note: "Promoted from Automation Tester",
-      start: "Feb 2020",
+      note: "Promoted from Full Stack Developer",
+      start: "Nov 2022",
       end: "Nov 2023",
       bullets: [
         "Built Java/Spring Boot APIs and Alfresco platform extensions.",
-        "Delivered solutions for Evergy that significantly improved content retrieval performance.",
-        "Contributed to Keycloak-based SSO integration for Alfresco products (strict security contexts).",
-        "Worked across backend services and integration/UI concerns end to end.",
+        "Delivered key solutions for Evergy that significantly improved content retrieval performance.",
+        "Led data migration initiatives using Spring Boot, ensuring minimal downtime and data integrity.",
       ],
     },
     {
-      role: "Automation Tester",
+      role: "Full Stack Developer",
       company: "Alfresco",
       start: "Feb 2019",
-      end: "Feb 2020",
+      end: "Nov 2022",
       bullets: [
-        "Title was Automation Tester; day-to-day work was already full stack.",
-        "Shipped features spanning Java backend and UI-facing integration work.",
-        "Developed Microsoft Office integration work using AngularJS alongside Java/Spring.",
+        "Developed Microsoft Office integration features using AngularJS.",
+        "Designed and implemented Alfresco Transform Core backend components (Java/Spring).",
+        "Contributed to Docker and Kubernetes deployment solutions and Jenkins-based CI/CD pipelines.",
       ],
     },
     {
@@ -67,9 +55,9 @@ export const profile = {
       start: "Aug 2018",
       end: "Feb 2019",
       bullets: [
-        "Intensive recruit-train-deploy academy in London.",
-        "Java, engineering fundamentals, and test automation.",
-        "Selected for placement at Alfresco after completion.",
+        "Completed Sparta Global's intensive recruit-train-deploy academy in London.",
+        "Trained in Java software development, engineering fundamentals, and test automation.",
+        "Selected among a small cohort that completed the programme and placed at Alfresco.",
       ],
     },
   ],
@@ -85,13 +73,14 @@ export const profile = {
       name: "Scribing.AI",
       stack: "AI writing",
       description:
-        "Writing app with paragraph-level editing and real-time content generation.",
+        "AI writing app with paragraph-level editing and real-time content generation.",
       youtubeId: "kQBaPMqguSY",
     },
     {
       name: "Upwork automation",
       stack: "Python, Selenium, OpenAI",
-      description: "Job matching and proposal drafting with browser automation.",
+      description:
+        "Python/Selenium and OpenAI API for job matching and proposals.",
       youtubeId: "4ORArzjN3jg",
     },
   ],
@@ -99,33 +88,38 @@ export const profile = {
   skillGroups: [
     {
       label: "Backend & APIs",
-      items: ["Java", "Spring Boot", "REST", "Microservices", "Kafka", "PostgreSQL"],
+      items: [
+        "Java",
+        "Spring Boot",
+        "REST APIs",
+        "Microservices",
+        "Kafka",
+        "PostgreSQL",
+      ],
     },
     {
       label: "Frontend & integration",
-      items: [
-        "React",
-        "TypeScript",
-        "JavaScript",
-        "Angular",
-        "Angular",
-        "AngularJS",
-        "HTML",
-        "CSS",
-        "Node.js",
-      ],
+      items: ["JavaScript", "HTML", "CSS", "AngularJS", "Node.js"],
     },
     {
       label: "Platform & delivery",
       items: ["Docker", "Kubernetes", "Jenkins", "CI/CD", "AWS", "Linux", "Git"],
     },
     {
-      label: "Quality & automation",
-      items: ["Playwright", "Selenium", "Postman", "Agile", "BDD/TDD"],
+      label: "Quality & observability",
+      items: [
+        "Selenium",
+        "Postman",
+        "Agile",
+        "BDD/TDD",
+        "Prometheus",
+        "Grafana",
+        "Kibana",
+      ],
     },
     {
       label: "AI-assisted development",
-      items: ["Python", "Cursor", "Claude", "GitHub Copilot"],
+      items: ["Python", "Cursor", "Claude", "GitHub Copilot", "AI-assisted development"],
     },
   ],
 
