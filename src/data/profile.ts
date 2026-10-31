@@ -13,7 +13,7 @@ export const profile = {
 
   experience: [
     {
-      role: "Backend Developer",
+      role: "Java Developer",
       company: "ESG Global",
       start: "Jan 2024",
       end: "Oct 2025",
