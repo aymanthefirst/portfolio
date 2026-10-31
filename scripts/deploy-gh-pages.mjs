@@ -26,5 +26,9 @@ execSync("git remote add origin https://github.com/aymanthefirst/portfolio.git",
 });
 execSync("git push -f origin gh-pages", { cwd: stage, stdio: "inherit" });
 
-rmSync(stage, { recursive: true, force: true });
+try {
+  rmSync(stage, { recursive: true, force: true });
+} catch {
+  console.warn("Could not remove .gh-pages-staging (ignored); delete manually if needed.");
+}
 console.log("Deployed to gh-pages.");

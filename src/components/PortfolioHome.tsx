@@ -8,13 +8,20 @@ import SectionHeader from "@/components/SectionHeader";
 
 const emailSubject = encodeURIComponent("Portfolio enquiry");
 const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}&su=${emailSubject}`;
-const mailtoHref = `mailto:${profile.email}?subject=${emailSubject}`;
 
 const coreStack = ["Java", "Spring Boot", "Kafka", "Docker", "Playwright", "Python"];
 const sectionIds = ["experience", "projects", "skills", "contact"] as const;
 const bulletPreviewCount = 3;
 
 type SectionId = (typeof sectionIds)[number];
+
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const headerOffset = 96;
+  const top = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+}
 
 function navClass(active: boolean) {
   return active ? "nav-link nav-link-active" : "nav-link";
@@ -75,16 +82,15 @@ export default function PortfolioHome({ year }: { year: number }) {
             <a href="#skills" className={navClass(activeSection === "skills")}>
               Skills
             </a>
-            <a href="#contact" className={navClass(activeSection === "contact")}>
-              Contact
-            </a>
             <a
-              href={profile.linkedin}
-              className="btn-secondary !px-4 !py-1.5 text-xs"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
+              className={navClass(activeSection === "contact")}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("contact");
+              }}
             >
-              LinkedIn
+              Contact
             </a>
           </div>
         </nav>
@@ -107,6 +113,18 @@ export default function PortfolioHome({ year }: { year: number }) {
                 </h1>
                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 md:text-[1.05rem]">
                   {profile.tagline}
+                </p>
+                <p className="mt-3 text-sm">
+                  <a
+                    href="#projects"
+                    className="font-medium text-zinc-400 underline decoration-zinc-600 underline-offset-4 transition hover:text-zinc-200"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("projects");
+                    }}
+                  >
+                    Project demos with video walkthroughs
+                  </a>
                 </p>
                 <div className="mt-4 max-w-2xl">
                   {summaryOpen ? (
@@ -137,14 +155,13 @@ export default function PortfolioHome({ year }: { year: number }) {
               <p className="text-sm text-zinc-500">
                 <span className="text-zinc-300">7+ years</span>
                 <span className="mx-2 text-zinc-700">·</span>
-                <span className="text-zinc-300">{profile.projects.length} public demos</span>
-                <span className="mx-2 text-zinc-700">·</span>
                 <span className="text-zinc-300">ESG Global & Alfresco</span>
               </p>
               <p className="mt-3 text-xs leading-relaxed text-zinc-600">{coreStack.join(" · ")}</p>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div id="contact" className="mt-6 scroll-mt-28">
+              <div className="flex flex-wrap items-center gap-3">
               <a
                 href={gmailComposeHref}
                 className="btn-primary"
@@ -162,6 +179,14 @@ export default function PortfolioHome({ year }: { year: number }) {
                 Meet with me
               </a>
               <a
+                href={profile.linkedin}
+                className="btn-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn
+              </a>
+              <a
                 href={profile.github}
                 className="btn-secondary"
                 target="_blank"
@@ -169,10 +194,11 @@ export default function PortfolioHome({ year }: { year: number }) {
               >
                 GitHub
               </a>
-            </div>
+              </div>
             <p className="mt-6 text-xs leading-relaxed text-zinc-600">
               {profile.location} · {profile.availability}
             </p>
+            </div>
           </div>
         </section>
 
@@ -327,52 +353,6 @@ export default function PortfolioHome({ year }: { year: number }) {
             {profile.languages.join(", ")}
           </p>
         </section>
-
-        <section id="contact" className="section-shell scroll-mt-24 pb-8">
-          <div className="cta-band">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
-              Let&apos;s talk
-            </p>
-            <h2 className="mt-3 text-2xl font-medium tracking-tight text-zinc-50 md:text-3xl">
-              Open to Java backend and platform roles
-            </h2>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
-              {profile.availability} · {profile.location}
-            </p>
-            <p className="mt-2 text-sm text-zinc-500">
-              <a
-                href={gmailComposeHref}
-                className="text-zinc-400 transition hover:text-zinc-200"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {profile.email}
-              </a>
-              <span className="mx-2 text-zinc-700">·</span>
-              <a href={mailtoHref} className="transition hover:text-zinc-200">
-                Open in mail app
-              </a>
-            </p>
-            <div className="relative mt-6 flex flex-wrap gap-3">
-              <a
-                href={gmailComposeHref}
-                className="btn-primary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Email me
-              </a>
-              <a
-                href={profile.calendly}
-                className="btn-secondary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Book a 30‑min call
-              </a>
-            </div>
-          </div>
-        </section>
       </main>
 
       <footer className="relative z-10 border-t border-zinc-800/70 py-10 text-center text-sm text-zinc-600">
@@ -380,6 +360,10 @@ export default function PortfolioHome({ year }: { year: number }) {
           © {year} {profile.name} ·{" "}
           <a href={profile.linkedin} className="text-zinc-500 transition-colors hover:text-zinc-300">
             LinkedIn
+          </a>
+          <span className="mx-2 text-zinc-800">·</span>
+          <a href={profile.github} className="text-zinc-500 transition-colors hover:text-zinc-300">
+            GitHub
           </a>
         </p>
         <p className="mt-2 font-mono text-[11px] text-zinc-700">
