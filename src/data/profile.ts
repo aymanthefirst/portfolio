@@ -13,10 +13,23 @@ export const profile = {
 
   experience: [
     {
+      role: "Automation Engineer",
+      company: "ESG Global",
+      note: "Promoted",
+      start: "Oct 2024",
+      end: "Oct 2025",
+      bullets: [
+        "Promoted after demonstrating strong automation delivery and a clear passion for AI-driven workflows.",
+        "Built end-to-end UI automation for SaaS platforms using Playwright, including codegen/recorder-driven test creation.",
+        "Turned repetitive manual checks into reliable automated flows across critical product workflows.",
+        "Combined UI automation with API testing (Postman) and CI execution to support safer, faster releases.",
+      ],
+    },
+    {
       role: "Java Developer",
       company: "ESG Global",
       start: "Jan 2024",
-      end: "Oct 2025",
+      end: "Oct 2024",
       bullets: [
         "Built scalable backend services using Java, Spring Boot, microservices, and Kafka for real-time messaging and data processing on energy SaaS platforms.",
         "Developed REST APIs for billing, customer, and data systems.",
