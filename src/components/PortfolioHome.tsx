@@ -11,9 +11,6 @@ const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encode
 const mailtoHref = `mailto:${profile.email}?subject=${emailSubject}`;
 
 const coreStack = ["Java", "Spring Boot", "Kafka", "Docker", "Playwright", "Python"];
-const nameTokens = profile.name.trim().split(/\s+/);
-const givenName = nameTokens[0] ?? profile.name;
-const familyName = nameTokens.slice(1).join(" ");
 const sectionIds = ["experience", "projects", "skills", "contact"] as const;
 const bulletPreviewCount = 3;
 
@@ -58,7 +55,7 @@ export default function PortfolioHome({ year }: { year: number }) {
       <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4 text-sm">
           <a href="#top" className="text-sm font-medium tracking-tight text-zinc-300">
-            {givenName} {familyName.split(" ")[0] ?? ""}
+            {profile.name}
           </a>
           <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-2">
             <a href="#experience" className={navClass(activeSection === "experience")}>
@@ -97,21 +94,8 @@ export default function PortfolioHome({ year }: { year: number }) {
                     Available
                   </span>
                 </div>
-                <h1 className="mt-6 text-zinc-50">
-                  {familyName ? (
-                    <>
-                      <span className="block text-lg font-normal tracking-wide text-zinc-500 md:text-xl">
-                        {givenName}
-                      </span>
-                      <span className="mt-1 block text-[2rem] font-medium leading-[1.08] tracking-[-0.03em] md:text-[2.75rem] lg:text-[3rem]">
-                        {familyName}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="block text-[2rem] font-medium tracking-[-0.03em] md:text-[3rem]">
-                      {givenName}
-                    </span>
-                  )}
+                <h1 className="mt-5 max-w-xl text-[1.75rem] font-medium leading-[1.15] tracking-[-0.025em] text-zinc-50 md:text-[2.25rem] lg:text-[2.5rem]">
+                  {profile.name}
                 </h1>
                 <p className="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-200">
                   {profile.tagline}
@@ -143,26 +127,15 @@ export default function PortfolioHome({ year }: { year: number }) {
               </div>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              <div className="stat-chip">
-                <p className="text-2xl font-medium tabular-nums text-zinc-50">7+</p>
-                <p className="mt-1 text-xs text-zinc-500">Years in software</p>
-              </div>
-              <div className="stat-chip">
-                <p className="text-2xl font-medium tabular-nums text-zinc-50">
-                  {profile.projects.length}
-                </p>
-                <p className="mt-1 text-xs text-zinc-500">Public demo builds</p>
-              </div>
-              <div className="stat-chip">
-                <p className="text-base font-medium leading-tight text-zinc-50">
-                  ESG · Alfresco
-                </p>
-                <p className="mt-1 text-xs text-zinc-500">Recent employers</p>
-              </div>
-            </div>
+            <p className="mt-6 text-sm text-zinc-500">
+              <span className="text-zinc-300">7+ years</span>
+              <span className="mx-2 text-zinc-700">·</span>
+              <span className="text-zinc-300">{profile.projects.length} public demos</span>
+              <span className="mx-2 text-zinc-700">·</span>
+              <span className="text-zinc-300">ESG Global & Alfresco</span>
+            </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <a
                 href={gmailComposeHref}
                 className="btn-primary"
@@ -188,24 +161,13 @@ export default function PortfolioHome({ year }: { year: number }) {
                 GitHub
               </a>
             </div>
-            <p className="mt-5 font-mono text-xs leading-relaxed text-zinc-600">
+            <div className="mt-8 border-t border-zinc-800/80 pt-6">
+              <p className="text-xs text-zinc-500">{coreStack.join(" · ")}</p>
+            </div>
+            <p className="mt-4 text-xs leading-relaxed text-zinc-600">
               {profile.location} · {profile.availability}
             </p>
           </div>
-
-          <div className="card mt-6 p-4 md:p-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
-              Core stack
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {coreStack.map((skill) => (
-                <span key={skill} className="pill skill-spotlight text-xs font-medium">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-
         </section>
 
         <section id="experience" className="section-shell scroll-mt-24">
@@ -369,7 +331,7 @@ export default function PortfolioHome({ year }: { year: number }) {
               Open to Java backend and platform roles
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
-              {profile.availability}. {profile.location}
+              {profile.availability.trim()}. {profile.location}
             </p>
             <p className="mt-2 text-sm text-zinc-500">
               <a
