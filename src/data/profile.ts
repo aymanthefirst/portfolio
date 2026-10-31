@@ -16,7 +16,7 @@ export const profile = {
     {
       role: "Automation Engineer",
       company: "ESG Global",
-      note: "Promoted",
+      note: "Promoted from Java Developer",
       dates: "October 2024 – October 2025",
       bullets: [
         "Promoted after demonstrating strong automation delivery and a clear passion for AI-driven workflows.",
