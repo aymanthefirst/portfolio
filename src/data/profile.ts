@@ -135,6 +135,7 @@ export const profile = {
   education: [
     "BSc Computing & Business (2:1), The Open University",
     "Oracle Certified Java SE 11 Developer (OCPJD)",
+    "ISTQB Certified Tester",
   ],
 
   languages: ["English", "French", "Spanish", "Portuguese"],
