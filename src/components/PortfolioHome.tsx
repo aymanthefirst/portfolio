@@ -61,7 +61,7 @@ export default function PortfolioHome({ year }: { year: number }) {
               </p>
             </div>
             <Image
-              src="/ayman-headshot.jpg"
+              src="/portfolio/ayman-headshot.jpg"
               alt="Ayman El Harake"
               width={176}
               height={176}
