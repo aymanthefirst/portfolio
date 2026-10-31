@@ -1,0 +1,19 @@
+Portfolio polish loop — Composer 2.5 ONLY (do not use Claude/Opus/GPT subagents).
+
+Roles (same chat or two Composer tabs):
+
+REVIEWER
+1. Open https://aymanthefirst.github.io/portfolio/ (hard refresh).
+2. Screenshot: hero, experience, projects, contact.
+3. List max 5 issues: severity (high/medium), what you see, exact fix.
+4. Do not write code.
+
+WORKER
+1. Implement only the reviewer’s list.
+2. npm run build
+3. Deploy gh-pages (copy out/ → git init → push -f origin gh-pages).
+4. Reply with files changed.
+
+Repeat until reviewer says “ship” or no high-severity items remain.
+
+Model: Composer 2.5 Fast only. If using Cursor Task/subagent, set model to composer-2.5-fast explicitly.

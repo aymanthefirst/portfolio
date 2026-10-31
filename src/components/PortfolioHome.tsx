@@ -54,8 +54,8 @@ export default function PortfolioHome({ year }: { year: number }) {
 
       <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4 text-sm">
-          <a href="#top" className="text-sm font-medium tracking-tight text-zinc-300">
-            {profile.name}
+          <a href="#top" className="text-sm font-medium tracking-tight text-zinc-400">
+            Ayman
           </a>
           <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-2">
             <a href="#experience" className={navClass(activeSection === "experience")}>
@@ -101,17 +101,15 @@ export default function PortfolioHome({ year }: { year: number }) {
                   {profile.tagline}
                 </p>
                 <div className="mt-4 max-w-2xl">
-                  <p
-                    className={`text-base leading-relaxed text-zinc-500 ${summaryOpen ? "" : "line-clamp-2"}`}
-                  >
-                    {profile.summary}
-                  </p>
+                  {summaryOpen ? (
+                    <p className="text-base leading-relaxed text-zinc-500">{profile.summary}</p>
+                  ) : null}
                   <button
                     type="button"
                     onClick={() => setSummaryOpen((open) => !open)}
                     className="mt-2 text-sm font-medium text-zinc-400 underline decoration-zinc-600 underline-offset-4 transition hover:text-zinc-200"
                   >
-                    {summaryOpen ? "Show less" : "Read more"}
+                    {summaryOpen ? "Show less" : "More about my background"}
                   </button>
                 </div>
               </div>
@@ -127,12 +125,13 @@ export default function PortfolioHome({ year }: { year: number }) {
               </div>
             </div>
 
-            <p className="mt-6 text-sm text-zinc-500">
+            <p className="mt-6 text-sm leading-relaxed text-zinc-500">
               <span className="text-zinc-300">7+ years</span>
               <span className="mx-2 text-zinc-700">·</span>
               <span className="text-zinc-300">{profile.projects.length} public demos</span>
               <span className="mx-2 text-zinc-700">·</span>
               <span className="text-zinc-300">ESG Global & Alfresco</span>
+              <span className="mt-2 block text-xs text-zinc-600">{coreStack.join(" · ")}</span>
             </p>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -161,10 +160,7 @@ export default function PortfolioHome({ year }: { year: number }) {
                 GitHub
               </a>
             </div>
-            <div className="mt-8 border-t border-zinc-800/80 pt-6">
-              <p className="text-xs text-zinc-500">{coreStack.join(" · ")}</p>
-            </div>
-            <p className="mt-4 text-xs leading-relaxed text-zinc-600">
+            <p className="mt-6 text-xs leading-relaxed text-zinc-600">
               {profile.location} · {profile.availability}
             </p>
           </div>
@@ -331,7 +327,7 @@ export default function PortfolioHome({ year }: { year: number }) {
               Open to Java backend and platform roles
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
-              {profile.availability.trim()}. {profile.location}
+              {profile.availability} · {profile.location}
             </p>
             <p className="mt-2 text-sm text-zinc-500">
               <a
