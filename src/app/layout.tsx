@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${dmSans.variable} ${ibmPlexMono.variable} min-h-screen bg-zinc-950 font-sans text-zinc-100 antialiased`}
+        className={`${dmSans.variable} ${ibmPlexMono.variable} min-h-screen font-sans text-zinc-100 antialiased`}
       >
         {children}
       </body>

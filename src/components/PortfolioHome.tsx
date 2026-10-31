@@ -2,32 +2,33 @@
 
 import { useState } from "react";
 import { profile } from "@/data/profile";
+import SectionHeader from "@/components/SectionHeader";
 
 export default function PortfolioHome({ year }: { year: number }) {
   const [activeProject, setActiveProject] = useState(0);
   const project = profile.projects[activeProject];
 
   return (
-    <>
-      <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur">
-        <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-4 text-sm">
+    <div className="flex min-h-screen flex-col">
+      <header className="sticky top-0 z-50 border-b border-zinc-800/70 bg-zinc-950/85 backdrop-blur-md">
+        <nav className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-4 text-sm">
           <a href="#" className="font-semibold tracking-tight text-zinc-100">
             {profile.name.split(" ")[0]}
             <span className="text-teal-400">.</span>
           </a>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-zinc-400">
-            <a href="#experience" className="transition-colors hover:text-teal-300">
+          <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-2">
+            <a href="#experience" className="nav-link">
               Experience
             </a>
-            <a href="#builds" className="transition-colors hover:text-teal-300">
+            <a href="#builds" className="nav-link">
               Builds
             </a>
-            <a href="#skills" className="transition-colors hover:text-teal-300">
+            <a href="#skills" className="nav-link">
               Skills
             </a>
             <a
               href={profile.linkedin}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 transition-colors hover:border-teal-500/60 hover:text-teal-300"
+              className="btn-secondary !px-4 !py-1.5 text-xs"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -37,70 +38,68 @@ export default function PortfolioHome({ year }: { year: number }) {
         </nav>
       </header>
 
-      <main className="mx-auto max-w-5xl px-5 pb-20">
-        <section className="pb-14 pt-16 md:pb-20 md:pt-24">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-teal-400/90">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-6 pb-24">
+        <section className="pb-16 pt-14 md:pb-20 md:pt-20">
+          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-teal-500/90">
             {profile.title}
           </p>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-zinc-50 md:text-5xl lg:text-6xl">
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-zinc-50 md:text-5xl">
             {profile.name}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-300">
             {profile.tagline}
           </p>
-          <p className="mt-4 max-w-2xl leading-relaxed text-zinc-500">{profile.summary}</p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">
+            {profile.summary}
+          </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href={`mailto:${profile.email}`}
-              className="rounded-lg bg-teal-500 px-5 py-2.5 text-sm font-medium text-zinc-950 transition-colors hover:bg-teal-400"
-            >
+            <a href={`mailto:${profile.email}`} className="btn-primary">
               Email me
             </a>
             <a
               href={profile.github}
-              className="rounded-lg border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-zinc-500"
+              className="btn-secondary"
               target="_blank"
               rel="noopener noreferrer"
             >
               GitHub
             </a>
           </div>
-          <p className="mt-6 text-sm text-zinc-600">
+          <p className="mt-8 font-mono text-xs text-zinc-600">
             {profile.location} · {profile.availability}
           </p>
         </section>
 
-        <section id="experience" className="scroll-mt-20 border-t border-zinc-800/80 py-12">
-          <h2 className="text-2xl font-semibold tracking-tight text-zinc-100">Experience</h2>
-          <p className="mt-2 max-w-xl text-zinc-500">
-            End-to-end delivery from Alfresco platform work through ESG SaaS and automation
-            engineering.
-          </p>
-          <ol className="mt-10 space-y-10">
+        <section id="experience" className="section-shell scroll-mt-24">
+          <SectionHeader
+            eyebrow="Career"
+            title="Experience"
+            description="End-to-end delivery from Alfresco platform work through ESG SaaS and automation engineering."
+          />
+          <ol className="mt-10 space-y-5">
             {profile.experience.map((job) => (
-              <li
-                key={`${job.company}-${job.role}-${job.start}`}
-                className="relative border-l border-zinc-800 pl-6"
-              >
-                <span className="absolute -left-[5px] top-1.5 h-2 w-2 rounded-full bg-teal-500" />
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold text-zinc-100">
-                    {job.role}
-                    <span className="font-normal text-zinc-500"> · {job.company}</span>
-                    {"note" in job && job.note ? (
-                      <span className="ml-2 text-sm font-medium text-teal-400/90">
-                        ({job.note})
-                      </span>
-                    ) : null}
-                  </h3>
-                  <time className="font-mono text-xs text-zinc-500">
+              <li key={`${job.company}-${job.role}-${job.start}`} className="card p-6 md:p-7">
+                <div className="flex flex-col gap-3 border-l-2 border-teal-500/40 pl-4 sm:flex-row sm:items-start sm:justify-between sm:pl-5">
+                  <div>
+                    <h3 className="text-lg font-semibold text-zinc-100">{job.role}</h3>
+                    <p className="mt-1 text-sm text-zinc-400">
+                      {job.company}
+                      {"note" in job && job.note ? (
+                        <span className="ml-2 text-teal-400/90">· {job.note}</span>
+                      ) : null}
+                    </p>
+                  </div>
+                  <time className="shrink-0 font-mono text-xs text-zinc-500">
                     {job.start} – {job.end}
                   </time>
                 </div>
-                <ul className="mt-3 space-y-2 leading-relaxed text-zinc-400">
+                <ul className="mt-5 space-y-2.5 text-sm leading-relaxed text-zinc-400">
                   {job.bullets.map((b) => (
-                    <li key={b} className="flex gap-2">
-                      <span className="shrink-0 text-teal-600">▹</span>
+                    <li key={b} className="flex gap-3">
+                      <span
+                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-teal-500"
+                        aria-hidden
+                      />
                       <span>{b}</span>
                     </li>
                   ))}
@@ -110,29 +109,36 @@ export default function PortfolioHome({ year }: { year: number }) {
           </ol>
         </section>
 
-        <section id="builds" className="scroll-mt-20 border-t border-zinc-800/80 py-12">
-          <h2 className="text-2xl font-semibold tracking-tight text-zinc-100">Builds</h2>
-          <p className="mt-2 max-w-xl text-zinc-500">
-            Side projects with public demos — pick a project to watch below.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2">
+        <section id="builds" className="section-shell scroll-mt-24">
+          <SectionHeader
+            eyebrow="Projects"
+            title="Builds"
+            description="Side projects with public demos — select a project to watch."
+          />
+          <div
+            className="card mt-8 flex flex-wrap gap-2 p-2"
+            role="tablist"
+            aria-label="Project demos"
+          >
             {profile.projects.map((p, i) => (
               <button
                 key={p.name}
                 type="button"
+                role="tab"
+                aria-selected={i === activeProject}
                 onClick={() => setActiveProject(i)}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                className={`rounded-xl px-4 py-2 text-sm font-medium transition-colors ${
                   i === activeProject
-                    ? "bg-teal-500 text-zinc-950"
-                    : "border border-zinc-700 text-zinc-300 hover:border-zinc-500"
+                    ? "bg-teal-500 text-zinc-950 shadow-sm"
+                    : "text-zinc-400 hover:bg-zinc-800/80 hover:text-zinc-200"
                 }`}
               >
                 {p.name}
               </button>
             ))}
           </div>
-          <article className="mt-8 overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40">
-            <div className="aspect-video w-full bg-zinc-900">
+          <article className="card mt-4 overflow-hidden">
+            <div className="aspect-video w-full bg-zinc-950">
               <iframe
                 className="h-full w-full"
                 src={`https://www.youtube-nocookie.com/embed/${project.youtubeId}`}
@@ -142,28 +148,29 @@ export default function PortfolioHome({ year }: { year: number }) {
                 allowFullScreen
               />
             </div>
-            <div className="p-5">
+            <div className="border-t border-zinc-800/80 p-6">
               <h3 className="text-lg font-semibold text-zinc-100">{project.name}</h3>
-              <p className="mt-1 font-mono text-xs text-teal-400/80">{project.stack}</p>
-              <p className="mt-2 text-sm text-zinc-400">{project.description}</p>
+              <p className="mt-2 font-mono text-xs text-teal-400/90">{project.stack}</p>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-400">{project.description}</p>
             </div>
           </article>
         </section>
 
-        <section id="skills" className="scroll-mt-20 border-t border-zinc-800/80 py-12">
-          <h2 className="text-2xl font-semibold tracking-tight text-zinc-100">Skills</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+        <section id="skills" className="section-shell scroll-mt-24">
+          <SectionHeader
+            eyebrow="Toolkit"
+            title="Skills"
+            description="Backend, frontend, platform, and quality — aligned with full-stack delivery roles."
+          />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {profile.skillGroups.map((group) => (
-              <div key={group.label} className="rounded-xl border border-zinc-800/80 p-5">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-zinc-500">
+              <div key={group.label} className="card p-5">
+                <h3 className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
                   {group.label}
                 </h3>
-                <ul className="mt-3 flex flex-wrap gap-2">
+                <ul className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((skill) => (
-                    <li
-                      key={skill}
-                      className="rounded-md bg-zinc-800/80 px-2.5 py-1 text-sm text-zinc-300"
-                    >
+                    <li key={skill} className="pill">
                       {skill}
                     </li>
                   ))}
@@ -173,32 +180,33 @@ export default function PortfolioHome({ year }: { year: number }) {
           </div>
         </section>
 
-        <section className="border-t border-zinc-800/80 py-12">
-          <h2 className="text-2xl font-semibold tracking-tight text-zinc-100">
-            Education & languages
-          </h2>
-          <ul className="mt-6 space-y-2 text-zinc-400">
+        <section className="section-shell">
+          <SectionHeader eyebrow="Background" title="Education & languages" />
+          <ul className="card mt-10 divide-y divide-zinc-800/80 px-6 py-2">
             {profile.education.map((line) => (
-              <li key={line}>{line}</li>
+              <li key={line} className="py-4 text-sm leading-relaxed text-zinc-300">
+                {line}
+              </li>
             ))}
           </ul>
           <p className="mt-6 text-sm text-zinc-500">
-            Languages: {profile.languages.join(", ")}
+            <span className="font-medium text-zinc-400">Languages:</span>{" "}
+            {profile.languages.join(", ")}
           </p>
         </section>
       </main>
 
-      <footer className="border-t border-zinc-800/80 py-8 text-center text-sm text-zinc-600">
+      <footer className="border-t border-zinc-800/70 py-10 text-center text-sm text-zinc-600">
         <p>
           © {year} {profile.name} ·{" "}
-          <a href={profile.linkedin} className="text-zinc-500 hover:text-teal-400">
+          <a href={profile.linkedin} className="text-zinc-500 transition-colors hover:text-teal-400">
             LinkedIn
           </a>
         </p>
-        <p className="mt-2 font-mono text-xs text-zinc-700">
+        <p className="mt-2 font-mono text-[11px] text-zinc-700">
           React · TypeScript · Next.js · Tailwind CSS
         </p>
       </footer>
-    </>
+    </div>
   );
 }
