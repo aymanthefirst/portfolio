@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { profile } from "@/data/profile";
 import SectionHeader from "@/components/SectionHeader";
@@ -44,18 +45,30 @@ export default function PortfolioHome({ year }: { year: number }) {
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 pb-24">
         <section className="pb-16 pt-14 md:pb-20 md:pt-20">
-          <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-teal-500/90">
-            {profile.title}
-          </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-zinc-50 md:text-5xl">
-            {profile.name}
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-300">
-            {profile.tagline}
-          </p>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">
-            {profile.summary}
-          </p>
+          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+            <div className="min-w-0 flex-1">
+              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-teal-500/90">
+                {profile.title}
+              </p>
+              <h1 className="mt-3 text-4xl font-bold tracking-tight text-zinc-50 md:text-5xl">
+                {profile.name}
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-zinc-300">
+                {profile.tagline}
+              </p>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">
+                {profile.summary}
+              </p>
+            </div>
+            <Image
+              src="/ayman-headshot.jpg"
+              alt="Ayman El Harake"
+              width={176}
+              height={176}
+              priority
+              className="h-36 w-36 shrink-0 rounded-2xl border border-zinc-800/80 object-cover object-top shadow-lg shadow-black/30 md:h-44 md:w-44"
+            />
+          </div>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href={gmailComposeHref}
