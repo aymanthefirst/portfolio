@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
 import SectionHeader from "@/components/SectionHeader";
 
@@ -9,33 +9,65 @@ const emailSubject = encodeURIComponent("Portfolio enquiry");
 const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}&su=${emailSubject}`;
 const mailtoHref = `mailto:${profile.email}?subject=${emailSubject}`;
 
-const heroHighlights = ["Java & Spring Boot", "APIs & microservices", "CI/CD & platform work"];
+const coreStack = ["Java", "Spring Boot", "Kafka", "Docker", "Playwright", "Python"];
+const sectionIds = ["experience", "projects", "skills", "contact"] as const;
+const bulletPreviewCount = 3;
+
+type SectionId = (typeof sectionIds)[number];
+
+function navClass(active: boolean) {
+  return active ? "nav-link nav-link-active" : "nav-link";
+}
 
 export default function PortfolioHome({ year }: { year: number }) {
   const [activeProject, setActiveProject] = useState(0);
+  const [activeSection, setActiveSection] = useState<SectionId | "">("");
+  const [summaryOpen, setSummaryOpen] = useState(false);
+  const [expandedJobs, setExpandedJobs] = useState<Record<string, boolean>>({});
   const project = profile.projects[activeProject];
+
+  useEffect(() => {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target.id) {
+          setActiveSection(visible[0].target.id as SectionId);
+        }
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: [0.1, 0.25, 0.5] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="relative flex min-h-screen flex-col">
       <div className="page-glow" aria-hidden />
 
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/75 backdrop-blur-xl">
-        <nav className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 py-4 text-sm">
+        <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4 text-sm">
           <a href="#top" className="font-display text-base font-bold tracking-tight text-zinc-100">
             {profile.name.split(" ")[0]}
             <span className="text-teal-400">.</span>
           </a>
           <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-2">
-            <a href="#experience" className="nav-link">
+            <a href="#experience" className={navClass(activeSection === "experience")}>
               Experience
             </a>
-            <a href="#projects" className="nav-link">
+            <a href="#projects" className={navClass(activeSection === "projects")}>
               Projects
             </a>
-            <a href="#skills" className="nav-link">
+            <a href="#skills" className={navClass(activeSection === "skills")}>
               Skills
             </a>
-            <a href="#contact" className="nav-link">
+            <a href="#contact" className={navClass(activeSection === "contact")}>
               Contact
             </a>
             <a
@@ -50,9 +82,9 @@ export default function PortfolioHome({ year }: { year: number }) {
         </nav>
       </header>
 
-      <main className="relative z-10 mx-auto w-full max-w-4xl flex-1 px-6 pb-24">
-        <section id="top" className="pb-16 pt-12 md:pb-20 md:pt-16">
-          <div className="glass-panel">
+      <main className="relative z-10 mx-auto w-full max-w-5xl flex-1 px-6 pb-24">
+        <section id="top" className="pb-12 pt-10 md:pb-16 md:pt-14">
+          <div className="glass-panel hero-enter">
             <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-3">
@@ -69,19 +101,20 @@ export default function PortfolioHome({ year }: { year: number }) {
                 <p className="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-200">
                   {profile.tagline}
                 </p>
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">
-                  {profile.summary}
-                </p>
-                <ul className="mt-6 flex flex-wrap gap-2">
-                  {heroHighlights.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-full border border-zinc-700/60 bg-zinc-900/60 px-3 py-1 text-xs font-medium text-zinc-300"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-4 max-w-2xl">
+                  <p
+                    className={`text-base leading-relaxed text-zinc-500 ${summaryOpen ? "" : "line-clamp-2"}`}
+                  >
+                    {profile.summary}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSummaryOpen((open) => !open)}
+                    className="mt-2 text-sm font-medium text-teal-400/90 transition hover:text-teal-300"
+                  >
+                    {summaryOpen ? "Show less" : "Read more"}
+                  </button>
+                </div>
               </div>
               <div className="headshot-ring mx-auto shrink-0 lg:mx-0">
                 <Image
@@ -95,7 +128,7 @@ export default function PortfolioHome({ year }: { year: number }) {
               </div>
             </div>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
               <div className="stat-chip">
                 <p className="font-display text-2xl font-bold text-zinc-50">7+</p>
                 <p className="mt-1 text-xs text-zinc-500">Years in software</p>
@@ -140,23 +173,22 @@ export default function PortfolioHome({ year }: { year: number }) {
                 GitHub
               </a>
             </div>
-            <p className="mt-4 text-sm text-zinc-500">
-              <a
-                href={gmailComposeHref}
-                className="text-zinc-400 transition-colors hover:text-teal-400"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {profile.email}
-              </a>
-              <span className="mx-2 text-zinc-700">·</span>
-              <a href={mailtoHref} className="text-zinc-500 transition-colors hover:text-teal-400">
-                Open in mail app
-              </a>
-            </p>
-            <p className="mt-6 font-mono text-xs text-zinc-600">
+            <p className="mt-5 font-mono text-xs leading-relaxed text-zinc-600">
               {profile.location} · {profile.availability}
             </p>
+          </div>
+
+          <div className="card mt-6 p-4 md:p-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+              Core stack
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {coreStack.map((skill) => (
+                <span key={skill} className="pill skill-spotlight text-xs font-medium">
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -166,39 +198,57 @@ export default function PortfolioHome({ year }: { year: number }) {
             title="Experience"
             description="Backend and platform delivery at ESG Global and Alfresco, from academy placement through solution work."
           />
-          <div className="relative mt-10">
-            <span className="timeline-rail" aria-hidden />
-            <ol className="space-y-6">
-            {profile.experience.map((job) => (
-              <li
-                key={`${job.company}-${job.role}-${job.dates}`}
-                className="card-interactive relative ml-0 py-5 pl-8 pr-5 md:py-6 md:pl-10 md:pr-7"
-              >
-                <span className="timeline-dot" aria-hidden />
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold text-zinc-100">
-                    {job.role}
-                    <span className="font-normal text-zinc-500"> · {job.company}</span>
-                    {"note" in job && job.note ? (
-                      <span className="ml-2 rounded-md bg-teal-500/15 px-2 py-0.5 text-xs font-semibold text-teal-300">
-                        {job.note}
-                      </span>
-                    ) : null}
-                  </h3>
-                  <time className="font-mono text-xs text-teal-400/80">{job.dates}</time>
-                </div>
-                <ul className="mt-4 space-y-2.5 leading-relaxed text-zinc-400">
-                  {job.bullets.map((b) => (
-                    <li key={b} className="flex gap-2.5">
-                      <span className="mt-0.5 shrink-0 text-teal-400">▹</span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-            </ol>
-          </div>
+          <ol className="mt-10 space-y-5">
+            {profile.experience.map((job) => {
+              const jobKey = `${job.company}-${job.role}-${job.dates}`;
+              const expanded = expandedJobs[jobKey] ?? false;
+              const visibleBullets = expanded
+                ? job.bullets
+                : job.bullets.slice(0, bulletPreviewCount);
+              const hiddenCount = job.bullets.length - bulletPreviewCount;
+
+              return (
+                <li
+                  key={jobKey}
+                  className="card-interactive experience-accent py-5 pl-6 pr-5 md:py-6 md:pl-7 md:pr-7"
+                >
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-zinc-100">
+                        {job.role}
+                        <span className="font-normal text-zinc-500"> · {job.company}</span>
+                      </h3>
+                      {"note" in job && job.note ? (
+                        <span className="mt-2 inline-block rounded-md bg-teal-500/15 px-2 py-0.5 text-xs font-semibold text-teal-300">
+                          {job.note}
+                        </span>
+                      ) : null}
+                    </div>
+                    <time className="shrink-0 font-mono text-xs text-teal-400/90">{job.dates}</time>
+                  </div>
+                  <ul className="mt-4 space-y-2.5 leading-relaxed text-zinc-400">
+                    {visibleBullets.map((b) => (
+                      <li key={b} className="flex gap-2.5">
+                        <span className="mt-0.5 shrink-0 text-teal-400">▹</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {hiddenCount > 0 ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedJobs((prev) => ({ ...prev, [jobKey]: !expanded }))
+                      }
+                      className="mt-3 text-sm font-medium text-teal-400/90 transition hover:text-teal-300"
+                    >
+                      {expanded ? "Show fewer highlights" : `Show ${hiddenCount} more`}
+                    </button>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ol>
         </section>
 
         <section id="projects" className="section-shell scroll-mt-24">
@@ -208,7 +258,7 @@ export default function PortfolioHome({ year }: { year: number }) {
             description="Side projects with public demos — select a project to watch."
           />
           <div
-            className="card mt-8 flex flex-wrap gap-2 p-2.5"
+            className="card mt-8 grid grid-cols-1 gap-2 p-2 sm:grid-cols-3"
             role="tablist"
             aria-label="Project demos"
           >
@@ -219,7 +269,7 @@ export default function PortfolioHome({ year }: { year: number }) {
                 role="tab"
                 aria-selected={i === activeProject}
                 onClick={() => setActiveProject(i)}
-                className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
+                className={`rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200 ${
                   i === activeProject
                     ? "project-tab-active"
                     : "text-zinc-400 hover:bg-zinc-800/80 hover:text-zinc-100"
@@ -229,7 +279,7 @@ export default function PortfolioHome({ year }: { year: number }) {
               </button>
             ))}
           </div>
-          <article className="card mt-4 overflow-hidden ring-1 ring-white/[0.04]">
+          <article className="card video-frame mt-4 overflow-hidden">
             <div className="relative aspect-video w-full bg-zinc-950">
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-zinc-950/40 to-transparent" />
               <iframe
@@ -275,10 +325,16 @@ export default function PortfolioHome({ year }: { year: number }) {
 
         <section className="section-shell">
           <SectionHeader eyebrow="Background" title="Education & languages" />
-          <ul className="card mt-10 divide-y divide-zinc-800/80 px-6 py-2">
+          <ul className="card mt-10 divide-y divide-zinc-800/80 px-6 py-1">
             {profile.education.map((line) => (
-              <li key={line} className="py-4 text-sm leading-relaxed text-zinc-300">
-                {line}
+              <li
+                key={line}
+                className="flex gap-3 py-4 text-sm leading-relaxed text-zinc-300"
+              >
+                <span className="mt-0.5 shrink-0 text-teal-400" aria-hidden>
+                  ◆
+                </span>
+                <span>{line}</span>
               </li>
             ))}
           </ul>
@@ -297,8 +353,21 @@ export default function PortfolioHome({ year }: { year: number }) {
               Open to Java backend and platform roles
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">
-              {profile.availability}. Based in {profile.location.split("—")[0].trim()} — happy to
-              discuss hybrid London or relocation.
+              {profile.availability}. {profile.location}
+            </p>
+            <p className="mt-2 text-sm text-zinc-500">
+              <a
+                href={gmailComposeHref}
+                className="text-zinc-400 transition hover:text-teal-400"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {profile.email}
+              </a>
+              <span className="mx-2 text-zinc-700">·</span>
+              <a href={mailtoHref} className="transition hover:text-teal-400">
+                Open in mail app
+              </a>
             </p>
             <div className="relative mt-6 flex flex-wrap gap-3">
               <a
