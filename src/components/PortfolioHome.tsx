@@ -4,6 +4,8 @@ import { useState } from "react";
 import { profile } from "@/data/profile";
 import SectionHeader from "@/components/SectionHeader";
 
+const mailtoHref = `mailto:${profile.email}?subject=${encodeURIComponent("Portfolio enquiry")}`;
+
 export default function PortfolioHome({ year }: { year: number }) {
   const [activeProject, setActiveProject] = useState(0);
   const project = profile.projects[activeProject];
@@ -52,8 +54,8 @@ export default function PortfolioHome({ year }: { year: number }) {
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">
             {profile.summary}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={`mailto:${profile.email}`} className="btn-primary">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a href={mailtoHref} className="btn-primary">
               Email me
             </a>
             <a
@@ -63,6 +65,12 @@ export default function PortfolioHome({ year }: { year: number }) {
               rel="noopener noreferrer"
             >
               GitHub
+            </a>
+            <a
+              href={mailtoHref}
+              className="text-sm text-zinc-400 underline-offset-4 transition-colors hover:text-teal-400 hover:underline"
+            >
+              {profile.email}
             </a>
           </div>
           <p className="mt-8 font-mono text-xs text-zinc-600">
