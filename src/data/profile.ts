@@ -4,7 +4,7 @@ export const profile = {
   tagline:
     "Java, Spring, and Python across backend services, APIs, and full applications — Alfresco alum, delivery-focused, multilingual.",
   summary:
-    "Software Developer with strong Java, Spring, JavaScript, and Python experience across backend services, APIs, and full applications. Builds reliable systems with solid engineering judgement, CI/CD, and practical use of AI-assisted development. Clear communicator, multilingual, and delivery-focused.",
+    "Java Developer with strong Java, Spring, JavaScript, and Python experience across backend services, APIs, and full applications. Builds reliable systems with solid engineering judgement, CI/CD, and practical use of AI-assisted development. Clear communicator, multilingual, and delivery-focused.",
   email: "harakeayman@gmail.com",
   linkedin: "https://www.linkedin.com/in/aymanharake/",
   github: "https://github.com/aymanthefirst",
@@ -29,7 +29,7 @@ export const profile = {
     {
       role: "Solution Developer",
       company: "Alfresco",
-      note: "Promoted from Full Stack Developer",
+      note: "Promoted from Java Developer",
       start: "Nov 2022",
       end: "Nov 2023",
       bullets: [
@@ -39,7 +39,7 @@ export const profile = {
       ],
     },
     {
-      role: "Full Stack Developer",
+      role: "Java Developer",
       company: "Alfresco",
       start: "Feb 2019",
       end: "Nov 2022",
