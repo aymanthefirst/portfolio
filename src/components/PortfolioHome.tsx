@@ -97,7 +97,7 @@ export default function PortfolioHome({ year }: { year: number }) {
                 <h1 className="mt-5 max-w-xl text-[1.75rem] font-medium leading-[1.15] tracking-[-0.025em] text-zinc-50 md:text-[2.25rem] lg:text-[2.5rem]">
                   {profile.name}
                 </h1>
-                <p className="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-200">
+                <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400 md:text-[1.05rem]">
                   {profile.tagline}
                 </p>
                 <div className="mt-4 max-w-2xl">
