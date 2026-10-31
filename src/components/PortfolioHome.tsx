@@ -76,30 +76,31 @@ export default function PortfolioHome({ year }: { year: number }) {
             title="Experience"
             description="End-to-end delivery from Alfresco platform work through ESG SaaS and automation engineering."
           />
-          <ol className="mt-10 space-y-5">
+          <ol className="mt-10 space-y-10">
             {profile.experience.map((job) => (
-              <li key={`${job.company}-${job.role}-${job.start}`} className="card p-6 md:p-7">
-                <div className="flex flex-col gap-3 border-l-2 border-teal-500/40 pl-4 sm:flex-row sm:items-start sm:justify-between sm:pl-5">
-                  <div>
-                    <h3 className="text-lg font-semibold text-zinc-100">{job.role}</h3>
-                    <p className="mt-1 text-sm text-zinc-400">
-                      {job.company}
-                      {"note" in job && job.note ? (
-                        <span className="ml-2 text-teal-400/90">· {job.note}</span>
-                      ) : null}
-                    </p>
-                  </div>
-                  <time className="shrink-0 font-mono text-xs text-zinc-500">
+              <li
+                key={`${job.company}-${job.role}-${job.start}`}
+                className="relative border-l border-zinc-800 pl-6"
+              >
+                <span className="absolute -left-[5px] top-1.5 h-2 w-2 rounded-full bg-teal-500" />
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-lg font-semibold text-zinc-100">
+                    {job.role}
+                    <span className="font-normal text-zinc-500"> · {job.company}</span>
+                    {"note" in job && job.note ? (
+                      <span className="ml-2 text-sm font-medium text-teal-400/90">
+                        ({job.note})
+                      </span>
+                    ) : null}
+                  </h3>
+                  <time className="font-mono text-xs text-zinc-500">
                     {job.start} – {job.end}
                   </time>
                 </div>
-                <ul className="mt-5 space-y-2.5 text-sm leading-relaxed text-zinc-400">
+                <ul className="mt-3 space-y-2 leading-relaxed text-zinc-400">
                   {job.bullets.map((b) => (
-                    <li key={b} className="flex gap-3">
-                      <span
-                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-teal-500"
-                        aria-hidden
-                      />
+                    <li key={b} className="flex gap-2">
+                      <span className="shrink-0 text-teal-600">▹</span>
                       <span>{b}</span>
                     </li>
                   ))}
