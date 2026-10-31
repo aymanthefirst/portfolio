@@ -52,10 +52,9 @@
 
 body {
   background-color: var(--color-surface);
-  background-image: radial-gradient(ellipse 70% 45% at 50% -10%, rgb(255 255 255 / 0.04), transparent 60%);
 }
 
-.page-glow {
+.site-backdrop {
   pointer-events: none;
   position: fixed;
   inset: 0;
@@ -63,26 +62,54 @@ body {
   overflow: hidden;
 }
 
-.page-glow::before,
-.page-glow::after {
-  content: "";
+.site-backdrop__layer {
   position: absolute;
-  border-radius: 9999px;
-  filter: blur(80px);
-  animation: mesh-drift 18s ease-in-out infinite;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: grayscale(100%) blur(1px);
+  transform: translateZ(0);
 }
 
-.page-glow::before {
-  top: -10rem;
-  left: 20%;
-  height: 20rem;
-  width: 20rem;
-  background: rgb(255 255 255 / 0.03);
-  animation: none;
+.site-backdrop__layer--base {
+  inset: -8%;
+  opacity: 0.07;
+  background-position: center 20%;
 }
 
-.page-glow::after {
-  display: none;
+.site-backdrop__layer--hero {
+  top: -5%;
+  right: -12%;
+  width: min(92vw, 880px);
+  height: min(72vh, 640px);
+  opacity: 0.11;
+  background-position: center;
+  filter: grayscale(100%) blur(1.5px);
+  mask-image: linear-gradient(105deg, transparent 15%, rgb(0 0 0 / 0.85) 55%, transparent 92%);
+}
+
+.site-backdrop__layer--depth {
+  bottom: -10%;
+  left: -15%;
+  width: min(85vw, 760px);
+  height: min(55vh, 520px);
+  opacity: 0.08;
+  background-position: center;
+  filter: grayscale(100%) blur(2px);
+  mask-image: linear-gradient(285deg, transparent 10%, rgb(0 0 0 / 0.75) 50%, transparent 88%);
+}
+
+.site-backdrop__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgb(7 7 8 / 0.55) 0%, rgb(7 7 8 / 0.88) 38%, rgb(7 7 8 / 0.96) 100%),
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgb(255 255 255 / 0.035), transparent 55%);
+}
+
+.site-backdrop__vignette {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 120px rgb(0 0 0 / 0.45);
 }
 
 @layer components {
@@ -91,15 +118,15 @@ body {
   }
 
   .card {
-    @apply rounded-2xl border border-zinc-800/70 bg-zinc-900/40 shadow-lg shadow-black/25 backdrop-blur-sm;
+    @apply rounded-2xl border border-zinc-800/70 bg-zinc-950/70 shadow-lg shadow-black/30 backdrop-blur-md;
   }
 
   .card-interactive {
-    @apply rounded-2xl border border-zinc-800/70 bg-zinc-900/40 shadow-lg shadow-black/25 backdrop-blur-sm transition duration-300 hover:border-teal-500/25 hover:bg-zinc-900/55 hover:shadow-teal-950/20;
+    @apply rounded-2xl border border-zinc-800/70 bg-zinc-950/70 shadow-lg shadow-black/30 backdrop-blur-md transition duration-300 hover:border-zinc-600 hover:bg-zinc-950/85;
   }
 
   .glass-panel {
-    @apply rounded-2xl border border-zinc-800/90 bg-zinc-950/80 p-6 md:p-8;
+    @apply rounded-2xl border border-zinc-800/90 bg-zinc-950/75 p-6 backdrop-blur-lg md:p-8;
   }
 
   .btn-primary {
@@ -157,7 +184,11 @@ body {
 
   .cta-band::before {
     content: "";
-    @apply pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-teal-400/10 blur-3xl;
+    @apply pointer-events-none absolute inset-0 opacity-[0.07];
+    background-image: url("/portfolio/images/dev-code.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) blur(2px);
   }
 
   .hero-enter {

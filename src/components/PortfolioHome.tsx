@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
-import { devPhotos } from "@/data/visuals";
+import SiteBackdrop from "@/components/SiteBackdrop";
 import SectionHeader from "@/components/SectionHeader";
 
 const emailSubject = encodeURIComponent("Portfolio enquiry");
@@ -53,9 +53,9 @@ export default function PortfolioHome({ year }: { year: number }) {
 
   return (
     <div className="relative flex min-h-screen flex-col">
-      <div className="page-glow" aria-hidden />
+      <SiteBackdrop />
 
-      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/75 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4 text-sm">
           <a href="#top" className="text-sm font-medium tracking-tight text-zinc-300">
             {givenName} {familyName.split(" ")[0] ?? ""}
@@ -206,30 +206,6 @@ export default function PortfolioHome({ year }: { year: number }) {
             </div>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Software development">
-            {devPhotos.map((photo) => (
-              <figure
-                key={photo.src}
-                className="group relative aspect-[5/4] overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                  className="object-cover opacity-75 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-90"
-                />
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/35 to-zinc-950/10"
-                  aria-hidden
-                />
-                <figcaption className="absolute inset-x-0 bottom-0 p-4">
-                  <p className="text-sm font-medium text-zinc-100">{photo.title}</p>
-                  <p className="mt-1 text-xs leading-snug text-zinc-500">{photo.subtitle}</p>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
         </section>
 
         <section id="experience" className="section-shell scroll-mt-24">

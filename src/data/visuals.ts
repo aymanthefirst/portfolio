@@ -1,20 +1,18 @@
-export const devPhotos = [
+/** Ambient photography — used only as blurred site backdrop, not inline content. */
+export const siteAtmosphere = [
   {
+    id: "base",
     src: "/portfolio/images/dev-workspace.jpg",
-    alt: "Laptop on a desk with a code editor open",
-    title: "Product engineering",
-    subtitle: "Services, APIs, and full applications",
+    className: "site-backdrop__layer site-backdrop__layer--base",
   },
   {
+    id: "hero",
     src: "/portfolio/images/dev-code.jpg",
-    alt: "Close-up of source code on a monitor",
-    title: "Backend & integration",
-    subtitle: "Java, Spring, messaging, and data flows",
+    className: "site-backdrop__layer site-backdrop__layer--hero",
   },
   {
+    id: "depth",
     src: "/portfolio/images/dev-backend.jpg",
-    alt: "Developer working at a workstation with multiple screens",
-    title: "Platform delivery",
-    subtitle: "CI/CD, containers, and production support",
+    className: "site-backdrop__layer site-backdrop__layer--depth",
   },
 ] as const;
