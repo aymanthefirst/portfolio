@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
+import { devPhotos } from "@/data/visuals";
 import SectionHeader from "@/components/SectionHeader";
 
 const emailSubject = encodeURIComponent("Portfolio enquiry");
@@ -10,6 +11,9 @@ const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encode
 const mailtoHref = `mailto:${profile.email}?subject=${emailSubject}`;
 
 const coreStack = ["Java", "Spring Boot", "Kafka", "Docker", "Playwright", "Python"];
+const nameTokens = profile.name.trim().split(/\s+/);
+const givenName = nameTokens[0] ?? profile.name;
+const familyName = nameTokens.slice(1).join(" ");
 const sectionIds = ["experience", "projects", "skills", "contact"] as const;
 const bulletPreviewCount = 3;
 
@@ -53,9 +57,8 @@ export default function PortfolioHome({ year }: { year: number }) {
 
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/75 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4 text-sm">
-          <a href="#top" className="font-display text-base font-bold tracking-tight text-zinc-100">
-            {profile.name.split(" ")[0]}
-            <span className="text-teal-400">.</span>
+          <a href="#top" className="text-sm font-medium tracking-tight text-zinc-300">
+            {givenName} {familyName.split(" ")[0] ?? ""}
           </a>
           <div className="flex flex-wrap items-center justify-end gap-x-6 gap-y-2">
             <a href="#experience" className={navClass(activeSection === "experience")}>
@@ -87,16 +90,28 @@ export default function PortfolioHome({ year }: { year: number }) {
           <div className="glass-panel hero-enter">
             <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
               <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-3">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-teal-400/95">
-                    {profile.title}
-                  </p>
-                  <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <p className="text-sm font-medium text-zinc-400">{profile.title}</p>
+                  <span className="inline-flex items-center gap-1.5 text-xs text-zinc-500">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/90" aria-hidden />
                     Available
                   </span>
                 </div>
-                <h1 className="font-display mt-4 text-4xl font-extrabold tracking-tight md:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
-                  <span className="text-gradient">{profile.name}</span>
+                <h1 className="mt-6 text-zinc-50">
+                  {familyName ? (
+                    <>
+                      <span className="block text-lg font-normal tracking-wide text-zinc-500 md:text-xl">
+                        {givenName}
+                      </span>
+                      <span className="mt-1 block text-[2rem] font-medium leading-[1.08] tracking-[-0.03em] md:text-[2.75rem] lg:text-[3rem]">
+                        {familyName}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="block text-[2rem] font-medium tracking-[-0.03em] md:text-[3rem]">
+                      {givenName}
+                    </span>
+                  )}
                 </h1>
                 <p className="mt-5 max-w-2xl text-lg leading-relaxed text-zinc-200">
                   {profile.tagline}
@@ -110,37 +125,37 @@ export default function PortfolioHome({ year }: { year: number }) {
                   <button
                     type="button"
                     onClick={() => setSummaryOpen((open) => !open)}
-                    className="mt-2 text-sm font-medium text-teal-400/90 transition hover:text-teal-300"
+                    className="mt-2 text-sm font-medium text-zinc-400 underline decoration-zinc-600 underline-offset-4 transition hover:text-zinc-200"
                   >
                     {summaryOpen ? "Show less" : "Read more"}
                   </button>
                 </div>
               </div>
-              <div className="headshot-ring mx-auto shrink-0 lg:mx-0">
+              <div className="headshot-frame mx-auto shrink-0 lg:mx-0">
                 <Image
                   src="/portfolio/ayman-headshot.jpg"
                   alt="Ayman El Harake"
                   width={192}
                   height={192}
                   priority
-                  className="h-40 w-40 rounded-[14px] object-cover object-top md:h-48 md:w-48"
+                  className="h-40 w-40 object-cover object-top md:h-44 md:w-44"
                 />
               </div>
             </div>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               <div className="stat-chip">
-                <p className="font-display text-2xl font-bold text-zinc-50">7+</p>
+                <p className="text-2xl font-medium tabular-nums text-zinc-50">7+</p>
                 <p className="mt-1 text-xs text-zinc-500">Years in software</p>
               </div>
               <div className="stat-chip">
-                <p className="font-display text-2xl font-bold text-zinc-50">
+                <p className="text-2xl font-medium tabular-nums text-zinc-50">
                   {profile.projects.length}
                 </p>
                 <p className="mt-1 text-xs text-zinc-500">Public demo builds</p>
               </div>
               <div className="stat-chip">
-                <p className="font-display text-lg font-bold leading-tight text-zinc-50">
+                <p className="text-base font-medium leading-tight text-zinc-50">
                   ESG · Alfresco
                 </p>
                 <p className="mt-1 text-xs text-zinc-500">Recent employers</p>
@@ -190,6 +205,31 @@ export default function PortfolioHome({ year }: { year: number }) {
               ))}
             </div>
           </div>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Software development">
+            {devPhotos.map((photo) => (
+              <figure
+                key={photo.src}
+                className="group relative aspect-[5/4] overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900"
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                  className="object-cover opacity-75 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-90"
+                />
+                <div
+                  className="absolute inset-0 bg-gradient-to-t from-zinc-950/95 via-zinc-950/35 to-zinc-950/10"
+                  aria-hidden
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="text-sm font-medium text-zinc-100">{photo.title}</p>
+                  <p className="mt-1 text-xs leading-snug text-zinc-500">{photo.subtitle}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section id="experience" className="section-shell scroll-mt-24">
@@ -219,17 +259,17 @@ export default function PortfolioHome({ year }: { year: number }) {
                         <span className="font-normal text-zinc-500"> · {job.company}</span>
                       </h3>
                       {"note" in job && job.note ? (
-                        <span className="mt-2 inline-block rounded-md bg-teal-500/15 px-2 py-0.5 text-xs font-semibold text-teal-300">
+                        <span className="mt-2 inline-block rounded-md border border-zinc-700 px-2 py-0.5 text-xs font-medium text-zinc-400">
                           {job.note}
                         </span>
                       ) : null}
                     </div>
-                    <time className="shrink-0 font-mono text-xs text-teal-400/90">{job.dates}</time>
+                    <time className="shrink-0 font-mono text-xs text-zinc-500">{job.dates}</time>
                   </div>
                   <ul className="mt-4 space-y-2.5 leading-relaxed text-zinc-400">
                     {visibleBullets.map((b) => (
                       <li key={b} className="flex gap-2.5">
-                        <span className="mt-0.5 shrink-0 text-teal-400">▹</span>
+                        <span className="mt-0.5 shrink-0 text-zinc-600">▹</span>
                         <span>{b}</span>
                       </li>
                     ))}
@@ -240,7 +280,7 @@ export default function PortfolioHome({ year }: { year: number }) {
                       onClick={() =>
                         setExpandedJobs((prev) => ({ ...prev, [jobKey]: !expanded }))
                       }
-                      className="mt-3 text-sm font-medium text-teal-400/90 transition hover:text-teal-300"
+                      className="mt-3 text-sm font-medium text-zinc-400 underline decoration-zinc-600 underline-offset-4 transition hover:text-zinc-200"
                     >
                       {expanded ? "Show fewer highlights" : `Show ${hiddenCount} more`}
                     </button>
@@ -292,8 +332,8 @@ export default function PortfolioHome({ year }: { year: number }) {
               />
             </div>
             <div className="border-t border-zinc-800/80 bg-zinc-900/30 p-6 md:p-7">
-              <h3 className="font-display text-xl font-bold text-zinc-50">{project.name}</h3>
-              <p className="mt-2 font-mono text-xs text-teal-400">{project.stack}</p>
+              <h3 className="text-lg font-medium text-zinc-50">{project.name}</h3>
+              <p className="mt-2 font-mono text-xs text-zinc-500">{project.stack}</p>
               <p className="mt-3 text-sm leading-relaxed text-zinc-400">{project.description}</p>
             </div>
           </article>
@@ -308,7 +348,7 @@ export default function PortfolioHome({ year }: { year: number }) {
           <div className="mt-10 grid gap-4 sm:grid-cols-2">
             {profile.skillGroups.map((group) => (
               <div key={group.label} className="card-interactive p-5 md:p-6">
-                <h3 className="font-mono text-[11px] uppercase tracking-wider text-teal-400/80">
+                <h3 className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">
                   {group.label}
                 </h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
@@ -331,7 +371,7 @@ export default function PortfolioHome({ year }: { year: number }) {
                 key={line}
                 className="flex gap-3 py-4 text-sm leading-relaxed text-zinc-300"
               >
-                <span className="mt-0.5 shrink-0 text-teal-400" aria-hidden>
+                <span className="mt-0.5 shrink-0 text-zinc-600" aria-hidden>
                   ◆
                 </span>
                 <span>{line}</span>
@@ -346,10 +386,10 @@ export default function PortfolioHome({ year }: { year: number }) {
 
         <section id="contact" className="section-shell scroll-mt-24 pb-8">
           <div className="cta-band">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-teal-300/90">
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500">
               Let&apos;s talk
             </p>
-            <h2 className="font-display mt-3 text-2xl font-bold text-zinc-50 md:text-3xl">
+            <h2 className="mt-3 text-2xl font-medium tracking-tight text-zinc-50 md:text-3xl">
               Open to Java backend and platform roles
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">

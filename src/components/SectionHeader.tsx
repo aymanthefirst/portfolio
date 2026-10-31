@@ -8,12 +8,12 @@ export default function SectionHeader({ eyebrow, title, description }: SectionHe
   return (
     <header className="max-w-2xl">
       <div className="flex items-center gap-3">
-        <span className="h-px w-8 bg-gradient-to-r from-teal-400/80 to-transparent" aria-hidden />
-        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-teal-400/95">
+        <span className="h-px w-8 bg-zinc-600" aria-hidden />
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500">
           {eyebrow}
         </p>
       </div>
-      <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-zinc-50 md:text-3xl">
+      <h2 className="mt-3 text-2xl font-medium tracking-tight text-zinc-50 md:text-3xl">
         {title}
       </h2>
       {description ? (
