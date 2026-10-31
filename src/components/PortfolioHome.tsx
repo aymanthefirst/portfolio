@@ -87,7 +87,7 @@ export default function PortfolioHome({ year }: { year: number }) {
           <ol className="mt-10 space-y-10">
             {profile.experience.map((job) => (
               <li
-                key={`${job.company}-${job.role}-${job.start}`}
+                key={`${job.company}-${job.role}-${job.dates}`}
                 className="relative border-l border-zinc-800 pl-6"
               >
                 <span className="absolute -left-[5px] top-1.5 h-2 w-2 rounded-full bg-teal-500" />
@@ -101,9 +101,7 @@ export default function PortfolioHome({ year }: { year: number }) {
                       </span>
                     ) : null}
                   </h3>
-                  <time className="font-mono text-xs text-zinc-500">
-                    {job.start} – {job.end}
-                  </time>
+                  <time className="font-mono text-xs text-zinc-500">{job.dates}</time>
                 </div>
                 <ul className="mt-3 space-y-2 leading-relaxed text-zinc-400">
                   {job.bullets.map((b) => (

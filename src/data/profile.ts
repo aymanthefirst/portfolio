@@ -16,8 +16,7 @@ export const profile = {
       role: "Automation Engineer",
       company: "ESG Global",
       note: "Promoted",
-      start: "Oct 2024",
-      end: "Oct 2025",
+      dates: "October 2024 – October 2025",
       bullets: [
         "Promoted after demonstrating strong automation delivery and a clear passion for AI-driven workflows.",
         "Built end-to-end UI automation for SaaS platforms using Playwright, including codegen/recorder-driven test creation.",
@@ -28,8 +27,7 @@ export const profile = {
     {
       role: "Java Developer",
       company: "ESG Global",
-      start: "Jan 2024",
-      end: "Oct 2024",
+      dates: "January 2024 - October 2024",
       bullets: [
         "Built scalable backend services using Java, Spring Boot, microservices, and Kafka for real-time messaging and data processing on energy SaaS platforms.",
         "Developed REST APIs for billing, customer, and data systems.",
@@ -43,8 +41,7 @@ export const profile = {
       role: "Solution Developer",
       company: "Alfresco",
       note: "Promoted from Java Developer",
-      start: "Nov 2022",
-      end: "Nov 2023",
+      dates: "November 2022 - November 2023",
       bullets: [
         "Built Java/Spring Boot APIs and Alfresco platform extensions.",
         "Delivered key solutions for Evergy that significantly improved content retrieval performance.",
@@ -54,8 +51,7 @@ export const profile = {
     {
       role: "Java Developer",
       company: "Alfresco",
-      start: "Feb 2019",
-      end: "Nov 2022",
+      dates: "February 2019 - November 2022",
       bullets: [
         "Developed Microsoft Office integration features using AngularJS.",
         "Designed and implemented Alfresco Transform Core backend components (Java/Spring).",
@@ -65,8 +61,7 @@ export const profile = {
     {
       role: "Software Developer (Academy)",
       company: "Sparta Global",
-      start: "Aug 2018",
-      end: "Feb 2019",
+      dates: "August 2018 – February 2019",
       bullets: [
         "Completed Sparta Global's intensive recruit-train-deploy academy in London.",
         "Trained in Java software development, engineering fundamentals, and test automation.",
