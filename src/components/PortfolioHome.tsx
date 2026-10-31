@@ -4,7 +4,9 @@ import { useState } from "react";
 import { profile } from "@/data/profile";
 import SectionHeader from "@/components/SectionHeader";
 
-const mailtoHref = `mailto:${profile.email}?subject=${encodeURIComponent("Portfolio enquiry")}`;
+const emailSubject = encodeURIComponent("Portfolio enquiry");
+const gmailComposeHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}&su=${emailSubject}`;
+const mailtoHref = `mailto:${profile.email}?subject=${emailSubject}`;
 
 export default function PortfolioHome({ year }: { year: number }) {
   const [activeProject, setActiveProject] = useState(0);
@@ -55,8 +57,21 @@ export default function PortfolioHome({ year }: { year: number }) {
             {profile.summary}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href={mailtoHref} className="btn-primary">
+            <a
+              href={gmailComposeHref}
+              className="btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Email me
+            </a>
+            <a
+              href={profile.calendly}
+              className="btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Meet with me
             </a>
             <a
               href={profile.github}
@@ -66,13 +81,24 @@ export default function PortfolioHome({ year }: { year: number }) {
             >
               GitHub
             </a>
+          </div>
+          <p className="mt-4 text-sm text-zinc-500">
             <a
-              href={mailtoHref}
-              className="text-sm text-zinc-400 underline-offset-4 transition-colors hover:text-teal-400 hover:underline"
+              href={gmailComposeHref}
+              className="text-zinc-400 transition-colors hover:text-teal-400"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {profile.email}
             </a>
-          </div>
+            <span className="mx-2 text-zinc-700">·</span>
+            <a
+              href={mailtoHref}
+              className="text-zinc-500 transition-colors hover:text-teal-400"
+            >
+              Open in mail app
+            </a>
+          </p>
           <p className="mt-8 font-mono text-xs text-zinc-600">
             {profile.location} · {profile.availability}
           </p>

@@ -6,6 +6,7 @@ export const profile = {
   summary:
     "Java Developer with strong Java, Spring, JavaScript, and Python experience across backend services, APIs, and full applications. Builds reliable systems with solid engineering judgement, CI/CD, and practical use of AI-assisted development. Clear communicator, multilingual, and delivery-focused.",
   email: "harakeayman@gmail.com",
+  calendly: "https://calendly.com/aymanharake/30min",
   linkedin: "https://www.linkedin.com/in/aymanharake/",
   github: "https://github.com/aymanthefirst",
   location: "Abingdon, UK — open to London hybrid and relocation (EU)",
