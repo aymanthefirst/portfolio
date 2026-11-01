@@ -334,7 +334,7 @@ export default function PortfolioHome({ year }: { year: number }) {
         </section>
 
         <section className="section-shell">
-          <SectionHeader eyebrow="Background" title="Education & languages" />
+          <SectionHeader eyebrow="Background" title="Education" />
           <ul className="card mt-10 divide-y divide-zinc-800/80 px-6 py-1">
             {profile.education.map((line) => (
               <li
