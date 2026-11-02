@@ -30,3 +30,4 @@ Content source: [`src/data/profile.ts`](src/data/profile.ts)
 
 - [trading-agent-loop](https://github.com/aymanthefirst/trading-agent-loop) — Python / FastAPI / React demo
 - [Mini-REST-Java-Spring-Boot-Application](https://github.com/aymanthefirst/Mini-REST-Java-Spring-Boot-Application)
+- [SeleniumPythonJobSearch](https://github.com/aymanthefirst/SeleniumPythonJobSearch) — Python / Selenium automation sample
